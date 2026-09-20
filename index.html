@@ -59,6 +59,7 @@
             from {
                 transform: translateX(-40%);
             }
+
             to {
                 transform: translateX(10%);
             }
@@ -100,6 +101,7 @@
             from {
                 transform: translate(0, 0) scale(0.9);
             }
+
             to {
                 transform: translate(60px, -50px) scale(1.2);
             }
@@ -121,16 +123,22 @@
 
         .page.active {
             display: flex;
-            animation: pageIn 0.9s ease;
+            animation: pageIn 0.9s cubic-bezier(.2,.8,.2,1);
         }
 
         @keyframes pageIn {
-            from {
+            0% {
                 opacity: 0;
-                transform: scale(0.94) translateY(20px);
+                transform: scale(0.90) translateY(35px);
+                filter: blur(10px);
             }
 
-            to {
+            60% {
+                opacity: 1;
+                filter: blur(0);
+            }
+
+            100% {
                 opacity: 1;
                 transform: scale(1) translateY(0);
             }
@@ -141,6 +149,74 @@
             width: 100%;
             position: relative;
             z-index: 10;
+        }
+
+        /* ---------- CONTENT ANIMATIONS ---------- */
+
+        .page.active .content {
+            animation: contentReveal 1s ease both;
+        }
+
+        @keyframes contentReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(45px) scale(0.94);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+        }
+
+        .page.active h1,
+        .page.active h2 {
+            animation: headingReveal 1s ease both;
+        }
+
+        @keyframes headingReveal {
+            0% {
+                opacity: 0;
+                transform: translateY(-25px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page.active p,
+        .page.active .thought {
+            animation: textReveal 1.2s ease 0.15s both;
+        }
+
+        @keyframes textReveal {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .page.active button {
+            animation: buttonReveal 1s ease 0.5s both;
+        }
+
+        @keyframes buttonReveal {
+            from {
+                opacity: 0;
+                transform: translateY(25px) scale(0.8);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
         }
 
         h1 {
@@ -195,24 +271,17 @@
                 0 0 18px #ffcc70,
                 0 0 35px #ff8c00,
                 0 0 70px #ff1493;
+
             animation: titleGlow 2s ease-in-out infinite alternate;
         }
 
         @keyframes titleGlow {
             from {
                 transform: scale(1);
-                text-shadow:
-                    0 0 8px white,
-                    0 0 18px #ffcc70,
-                    0 0 35px #ff8c00;
             }
 
             to {
                 transform: scale(1.035);
-                text-shadow:
-                    0 0 15px white,
-                    0 0 30px #ffd700,
-                    0 0 55px #ff1493;
             }
         }
 
@@ -347,6 +416,126 @@
             }
         }
 
+        /* =====================================================
+           CALENDAR
+        ===================================================== */
+
+        .calendar-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 1200px;
+            margin-bottom: 15px;
+        }
+
+        .calendar {
+            width: min(340px, 88vw);
+            background: rgba(255,255,255,0.97);
+            color: #111;
+            border-radius: 22px;
+            padding: 18px;
+            box-shadow:
+                0 20px 60px rgba(0,0,0,0.45),
+                0 0 35px rgba(255,215,0,0.3);
+            transform-style: preserve-3d;
+        }
+
+        .calendar.flip {
+            animation: calendarFlip 0.16s ease-in-out;
+        }
+
+        @keyframes calendarFlip {
+            0% {
+                transform: rotateY(0deg) scale(1);
+            }
+
+            50% {
+                transform: rotateY(90deg) scale(0.95);
+            }
+
+            100% {
+                transform: rotateY(0deg) scale(1);
+            }
+        }
+
+        .calendar-head {
+            font-size: 29px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 6px;
+        }
+
+        .day-name {
+            font-size: 13px;
+            font-weight: bold;
+            color: #777;
+            padding: 6px 0;
+        }
+
+        .calendar-date {
+            height: 34px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            font-size: 14px;
+        }
+
+        .calendar-date.marked {
+            background: #ff3158;
+            color: white;
+            font-weight: bold;
+            box-shadow:
+                0 0 10px #ff3158,
+                0 0 25px rgba(255,49,88,0.7);
+            animation: markedDate 0.8s ease-in-out infinite alternate;
+        }
+
+        @keyframes markedDate {
+            from {
+                transform: scale(1);
+            }
+
+            to {
+                transform: scale(1.18);
+            }
+        }
+
+        .calendar-caption {
+            margin-top: 15px;
+            font-size: 14px;
+            color: #555;
+        }
+
+        .calendar-message {
+            font-size: 21px;
+            margin-top: 10px;
+            min-height: 32px;
+        }
+
+        .calendar-final {
+            animation: finalCalendarGlow 1.5s ease-in-out infinite alternate;
+        }
+
+        @keyframes finalCalendarGlow {
+            from {
+                box-shadow:
+                    0 20px 60px rgba(0,0,0,0.45),
+                    0 0 25px rgba(255,215,0,0.25);
+            }
+
+            to {
+                box-shadow:
+                    0 20px 60px rgba(0,0,0,0.45),
+                    0 0 55px rgba(255,215,0,0.8);
+            }
+        }
+
         /* ---------- MOBILE ---------- */
 
         @media (max-width: 600px) {
@@ -369,6 +558,10 @@
 
             button {
                 padding: 13px 25px;
+            }
+
+            .calendar {
+                width: min(320px, 88vw);
             }
         }
     </style>
@@ -519,30 +712,83 @@
     </section>
 
 
-    <!-- PAGE 5 -->
+    <!-- PAGE 5 : CALENDAR -->
 
     <section class="page" id="page5">
 
         <div class="content">
 
-            <div class="cake">
-                🎂
+            <div class="calendar-area">
+
+                <div class="calendar" id="calendar">
+
+                    <div class="calendar-head" id="calendarMonth">
+                        January 2026
+                    </div>
+
+                    <div class="calendar-grid">
+
+                        <div class="day-name">S</div>
+                        <div class="day-name">M</div>
+                        <div class="day-name">T</div>
+                        <div class="day-name">W</div>
+                        <div class="day-name">T</div>
+                        <div class="day-name">F</div>
+                        <div class="day-name">S</div>
+
+                        <div class="calendar-date"></div>
+                        <div class="calendar-date"></div>
+                        <div class="calendar-date">1</div>
+                        <div class="calendar-date">2</div>
+                        <div class="calendar-date">3</div>
+                        <div class="calendar-date">4</div>
+                        <div class="calendar-date">5</div>
+
+                        <div class="calendar-date">6</div>
+                        <div class="calendar-date">7</div>
+                        <div class="calendar-date">8</div>
+                        <div class="calendar-date">9</div>
+                        <div class="calendar-date">10</div>
+                        <div class="calendar-date">11</div>
+                        <div class="calendar-date">12</div>
+
+                        <div class="calendar-date">13</div>
+                        <div class="calendar-date">14</div>
+                        <div class="calendar-date">15</div>
+                        <div class="calendar-date">16</div>
+                        <div class="calendar-date">17</div>
+                        <div class="calendar-date">18</div>
+                        <div class="calendar-date">19</div>
+
+                        <div class="calendar-date">20</div>
+                        <div class="calendar-date">21</div>
+                        <div class="calendar-date">22</div>
+                        <div class="calendar-date">23</div>
+                        <div class="calendar-date">24</div>
+                        <div class="calendar-date">25</div>
+                        <div class="calendar-date">26</div>
+
+                        <div class="calendar-date">27</div>
+                        <div class="calendar-date">28</div>
+                        <div class="calendar-date">29</div>
+                        <div class="calendar-date">30</div>
+                        <div class="calendar-date">31</div>
+                        <div class="calendar-date"></div>
+                        <div class="calendar-date"></div>
+
+                    </div>
+
+                    <div class="calendar-caption">
+                        A special day ❤️
+                    </div>
+
+                </div>
+
             </div>
 
-            <h1 class="glow">
-                Happy Birthday Papa! 🎉
-            </h1>
-
-            <p>
-                May you always stay happy,
-                healthy and smiling.
-            </p>
-
-            <br>
-
-            <p>
-                With lots of love ❤️
-            </p>
+            <div class="calendar-message" id="calendarMessage">
+                Something Special...
+            </div>
 
             <button onclick="nextPage()">
                 🎁 Final Surprise
@@ -564,13 +810,245 @@
             </div>
 
             <h1 class="glow">
+                ❤️ Papa ❤️
+            </h1>
+
+            <p class="thought">
+
+                "आप मेरे लिए सिर्फ Papa नहीं,
+                बल्कि मेरी strength, मेरी inspiration
+                और मेरे सबसे बड़े support हैं।"
+
+            </p>
+
+            <p>
+                Happy Birthday! 🎉
+            </p>
+
+        </div>
+
+    </section>
 
 
-        /* Create random glowing particles */
+    <!-- BALLOONS -->
+
+    <div class="balloon b1">🎈</div>
+    <div class="balloon b2">🎈</div>
+    <div class="balloon b3">🎈</div>
+    <div class="balloon b4">🎈</div>
+
+
+    <!-- CONFETTI -->
+
+    <div class="confetti" style="left:5%; animation-duration:5s; animation-delay:0s;"></div>
+    <div class="confetti" style="left:15%; animation-duration:7s; animation-delay:1s;"></div>
+    <div class="confetti" style="left:25%; animation-duration:6s; animation-delay:2s;"></div>
+    <div class="confetti" style="left:35%; animation-duration:8s; animation-delay:0s;"></div>
+    <div class="confetti" style="left:45%; animation-duration:5s; animation-delay:3s;"></div>
+    <div class="confetti" style="left:55%; animation-duration:7s; animation-delay:1s;"></div>
+    <div class="confetti" style="left:65%; animation-duration:6s; animation-delay:2s;"></div>
+    <div class="confetti" style="left:75%; animation-duration:8s; animation-delay:0s;"></div>
+    <div class="confetti" style="left:85%; animation-duration:5s; animation-delay:3s;"></div>
+    <div class="confetti" style="left:95%; animation-duration:7s; animation-delay:1s;"></div>
+
+
+    <!-- JAVASCRIPT -->
+
+    <script>
+
+        let currentPage = 1;
+        let calendarStarted = false;
+
+
+        function nextPage() {
+
+            document
+                .getElementById("page" + currentPage)
+                .classList.remove("active");
+
+            currentPage++;
+
+            if (currentPage > 6) {
+                currentPage = 1;
+            }
+
+            document
+                .getElementById("page" + currentPage)
+                .classList.add("active");
+
+            window.scrollTo(0, 0);
+
+
+            /* Start calendar automatically */
+
+            if (currentPage === 5 && !calendarStarted) {
+
+                calendarStarted = true;
+
+                setTimeout(startCalendarAnimation, 500);
+
+            }
+
+        }
+
+
+        /* =====================================================
+           FAST MONTH FLIPPING
+        ===================================================== */
+
+        function startCalendarAnimation() {
+
+            const calendar =
+                document.getElementById("calendar");
+
+            const month =
+                document.getElementById("calendarMonth");
+
+            const message =
+                document.getElementById("calendarMessage");
+
+            const months = [
+                "January 2026",
+                "February 2026",
+                "March 2026",
+                "April 2026",
+                "May 2026",
+                "June 2026",
+                "July 2026",
+                "August 2026",
+                "September 2026"
+            ];
+
+            let index = 0;
+
+            message.innerHTML = "Time is flying... ⏳";
+
+
+            const flipTimer = setInterval(() => {
+
+                calendar.classList.remove("flip");
+
+                void calendar.offsetWidth;
+
+                calendar.classList.add("flip");
+
+                month.innerHTML = months[index];
+
+                index++;
+
+
+                if (index >= months.length) {
+
+                    clearInterval(flipTimer);
+
+                    setTimeout(() => {
+
+                        showSeptember();
+
+                    }, 350);
+
+                }
+
+            }, 180);
+
+        }
+
+
+        /* =====================================================
+           SEPTEMBER 2026
+        ===================================================== */
+
+        function showSeptember() {
+
+            const calendar =
+                document.getElementById("calendar");
+
+            const month =
+                document.getElementById("calendarMonth");
+
+            const message =
+                document.getElementById("calendarMessage");
+
+
+            month.innerHTML =
+                "September 2026";
+
+
+            /* Correct September 2026 calendar */
+
+            const grid =
+                calendar.querySelector(".calendar-grid");
+
+
+            grid.innerHTML = `
+
+                <div class="day-name">S</div>
+                <div class="day-name">M</div>
+                <div class="day-name">T</div>
+                <div class="day-name">W</div>
+                <div class="day-name">T</div>
+                <div class="day-name">F</div>
+                <div class="day-name">S</div>
+
+                <div class="calendar-date"></div>
+                <div class="calendar-date">1</div>
+                <div class="calendar-date">2</div>
+                <div class="calendar-date">3</div>
+                <div class="calendar-date">4</div>
+                <div class="calendar-date">5</div>
+                <div class="calendar-date">6</div>
+
+                <div class="calendar-date">7</div>
+                <div class="calendar-date">8</div>
+                <div class="calendar-date">9</div>
+                <div class="calendar-date">10</div>
+                <div class="calendar-date">11</div>
+                <div class="calendar-date">12</div>
+                <div class="calendar-date">13</div>
+
+                <div class="calendar-date">14</div>
+                <div class="calendar-date">15</div>
+                <div class="calendar-date">16</div>
+                <div class="calendar-date">17</div>
+                <div class="calendar-date">18</div>
+                <div class="calendar-date">19</div>
+                <div class="calendar-date">20</div>
+
+                <div class="calendar-date marked">21</div>
+                <div class="calendar-date">22</div>
+                <div class="calendar-date">23</div>
+                <div class="calendar-date">24</div>
+                <div class="calendar-date">25</div>
+                <div class="calendar-date">26</div>
+                <div class="calendar-date">27</div>
+
+                <div class="calendar-date">28</div>
+                <div class="calendar-date">29</div>
+                <div class="calendar-date">30</div>
+                <div class="calendar-date"></div>
+                <div class="calendar-date"></div>
+                <div class="calendar-date"></div>
+                <div class="calendar-date"></div>
+
+            `;
+
+
+            calendar.classList.add("calendar-final");
+
+
+            message.innerHTML =
+                "21 September ❤️<br>Someone very special was born on this day.";
+        }
+
+
+        /* =====================================================
+           PARTICLES
+        ===================================================== */
 
         for (let i = 0; i < 35; i++) {
 
-            const particle = document.createElement("div");
+            const particle =
+                document.createElement("div");
 
             particle.className = "particle";
 
@@ -591,7 +1069,7 @@
         }
 
 
-        /* Give confetti different shapes */
+        /* ---------- CONFETTI ---------- */
 
         const confetti =
             document.querySelectorAll(".confetti");
