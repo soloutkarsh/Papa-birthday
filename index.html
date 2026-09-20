@@ -14,10 +14,98 @@
 
         body {
             font-family: Arial, sans-serif;
-            background: #050505;
+            background: linear-gradient(135deg, #120018, #00152b, #170018);
             color: white;
-            overflow-x: hidden;
+            overflow: hidden;
         }
+
+        /* ---------- ANIMATED BIRTHDAY BACKGROUND ---------- */
+
+        .birthday-bg {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .birthday-text {
+            position: absolute;
+            white-space: nowrap;
+            font-size: clamp(55px, 12vw, 150px);
+            font-weight: 900;
+            text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.055);
+            letter-spacing: 8px;
+            animation: birthdayMove 18s linear infinite;
+        }
+
+        .birthday-text:nth-child(1) {
+            top: 8%;
+        }
+
+        .birthday-text:nth-child(2) {
+            top: 42%;
+            animation-duration: 22s;
+            animation-direction: reverse;
+        }
+
+        .birthday-text:nth-child(3) {
+            top: 76%;
+            animation-duration: 20s;
+        }
+
+        @keyframes birthdayMove {
+            from {
+                transform: translateX(-40%);
+            }
+            to {
+                transform: translateX(10%);
+            }
+        }
+
+        /* ---------- GLOWING ORBS ---------- */
+
+        .orb {
+            position: absolute;
+            width: 180px;
+            height: 180px;
+            border-radius: 50%;
+            filter: blur(55px);
+            opacity: 0.35;
+            animation: orbMove 8s ease-in-out infinite alternate;
+        }
+
+        .orb1 {
+            background: #ff1493;
+            top: 5%;
+            left: -50px;
+        }
+
+        .orb2 {
+            background: #00bfff;
+            right: -50px;
+            bottom: 10%;
+            animation-delay: 2s;
+        }
+
+        .orb3 {
+            background: #ffd700;
+            left: 40%;
+            bottom: -100px;
+            animation-delay: 4s;
+        }
+
+        @keyframes orbMove {
+            from {
+                transform: translate(0, 0) scale(0.9);
+            }
+            to {
+                transform: translate(60px, -50px) scale(1.2);
+            }
+        }
+
+        /* ---------- PAGE ---------- */
 
         .page {
             min-height: 100vh;
@@ -28,18 +116,31 @@
             padding: 30px 20px;
             position: relative;
             overflow: hidden;
+            z-index: 2;
         }
 
         .page.active {
             display: flex;
-            animation: fadeIn 1s ease;
+            animation: pageIn 0.9s ease;
+        }
+
+        @keyframes pageIn {
+            from {
+                opacity: 0;
+                transform: scale(0.94) translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
         }
 
         .content {
             max-width: 700px;
             width: 100%;
             position: relative;
-            z-index: 2;
+            z-index: 10;
         }
 
         h1 {
@@ -65,45 +166,111 @@
             max-width: 650px;
         }
 
+        /* ---------- BUTTON ---------- */
+
         button {
-            border: none;
-            padding: 14px 28px;
+            border: 1px solid rgba(255,255,255,0.4);
+            padding: 14px 30px;
             border-radius: 30px;
-            background: white;
-            color: black;
+            background: rgba(255,255,255,0.95);
+            color: #111;
             font-size: 16px;
+            font-weight: bold;
             cursor: pointer;
             margin-top: 30px;
+            transition: 0.3s;
+            box-shadow: 0 0 20px rgba(255,255,255,0.2);
         }
 
         button:hover {
-            transform: scale(1.05);
+            transform: scale(1.08);
+            box-shadow: 0 0 35px rgba(255,255,255,0.6);
         }
+
+        /* ---------- MAIN GLOW ---------- */
 
         .glow {
             text-shadow:
-                0 0 10px white,
-                0 0 25px #ffcc70,
-                0 0 50px #ff8c00;
+                0 0 8px white,
+                0 0 18px #ffcc70,
+                0 0 35px #ff8c00,
+                0 0 70px #ff1493;
+            animation: titleGlow 2s ease-in-out infinite alternate;
         }
+
+        @keyframes titleGlow {
+            from {
+                transform: scale(1);
+                text-shadow:
+                    0 0 8px white,
+                    0 0 18px #ffcc70,
+                    0 0 35px #ff8c00;
+            }
+
+            to {
+                transform: scale(1.035);
+                text-shadow:
+                    0 0 15px white,
+                    0 0 30px #ffd700,
+                    0 0 55px #ff1493;
+            }
+        }
+
+        /* ---------- HEART ---------- */
+
+        .heart {
+            font-size: 65px;
+            animation: heartbeat 1.2s infinite;
+            margin-bottom: 20px;
+            filter: drop-shadow(0 0 15px #ff1493);
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* ---------- CAKE ---------- */
+
+        .cake {
+            font-size: 120px;
+            animation: cakeFloat 2s ease-in-out infinite;
+            margin: 20px;
+            filter: drop-shadow(0 0 25px #ffd700);
+        }
+
+        @keyframes cakeFloat {
+            0%, 100% {
+                transform: translateY(0) rotate(-2deg);
+            }
+
+            50% {
+                transform: translateY(-15px) rotate(2deg);
+            }
+        }
+
+        /* ---------- BALLOONS ---------- */
 
         .balloon {
             position: absolute;
-            width: 45px;
-            height: 55px;
-            border-radius: 50%;
-            bottom: -80px;
-            animation: float 8s linear infinite;
-            opacity: 0.8;
+            font-size: 45px;
+            bottom: -100px;
+            z-index: 4;
+            animation: float 9s linear infinite;
         }
 
         .b1 {
-            left: 10%;
+            left: 5%;
             animation-delay: 0s;
         }
 
         .b2 {
-            left: 30%;
+            left: 28%;
             animation-delay: 2s;
         }
 
@@ -113,76 +280,95 @@
         }
 
         .b4 {
-            left: 80%;
+            left: 82%;
             animation-delay: 1s;
-        }
-
-        .heart {
-            font-size: 65px;
-            animation: heartbeat 1.4s infinite;
-            margin-bottom: 20px;
-        }
-
-        .cake {
-            font-size: 120px;
-            animation: cakeFloat 2s ease-in-out infinite;
-            margin: 20px;
-        }
-
-        .stars {
-            position: absolute;
-            inset: 0;
-            background-image:
-                radial-gradient(white 1px, transparent 1px);
-            background-size: 45px 45px;
-            opacity: 0.15;
-            animation: starsMove 12s linear infinite;
-        }
-
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: scale(0.97);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
         }
 
         @keyframes float {
             0% {
-                transform: translateY(0) rotate(-5deg);
+                transform: translateY(0) rotate(-8deg);
+                opacity: 0;
             }
+
+            10% {
+                opacity: 1;
+            }
+
             100% {
                 transform: translateY(-120vh) rotate(10deg);
+                opacity: 0;
             }
         }
 
-        @keyframes heartbeat {
-            0%, 100% {
-                transform: scale(1);
+        /* ---------- CONFETTI ---------- */
+
+        .confetti {
+            position: fixed;
+            top: -20px;
+            width: 8px;
+            height: 14px;
+            z-index: 5;
+            pointer-events: none;
+            animation: confettiFall linear infinite;
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(-20px) rotate(0deg);
             }
-            50% {
-                transform: scale(1.15);
+
+            100% {
+                transform: translateY(110vh) rotate(720deg);
             }
         }
 
-        @keyframes cakeFloat {
+        /* ---------- PARTICLES ---------- */
+
+        .particle {
+            position: fixed;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            opacity: 0.7;
+            z-index: 3;
+            animation: particleFloat 6s ease-in-out infinite;
+        }
+
+        @keyframes particleFloat {
             0%, 100% {
                 transform: translateY(0);
+                opacity: 0.2;
             }
+
             50% {
-                transform: translateY(-12px);
+                transform: translateY(-50px);
+                opacity: 1;
             }
         }
 
-        @keyframes starsMove {
-            from {
-                transform: translateY(0);
+        /* ---------- MOBILE ---------- */
+
+        @media (max-width: 600px) {
+
+            .thought {
+                font-size: 21px;
             }
-            to {
-                transform: translateY(-45px);
+
+            p {
+                font-size: 17px;
+            }
+
+            .cake {
+                font-size: 95px;
+            }
+
+            .heart {
+                font-size: 55px;
+            }
+
+            button {
+                padding: 13px 25px;
             }
         }
     </style>
@@ -190,14 +376,40 @@
 
 <body>
 
+    <!-- ANIMATED BACKGROUND -->
+
+    <div class="birthday-bg">
+
+        <div class="birthday-text">
+            HAPPY BIRTHDAY PAPA ❤️
+        </div>
+
+        <div class="birthday-text">
+            HAPPY BIRTHDAY PAPA 🎉
+        </div>
+
+        <div class="birthday-text">
+            HAPPY BIRTHDAY PAPA 🎂
+        </div>
+
+        <div class="orb orb1"></div>
+        <div class="orb orb2"></div>
+        <div class="orb orb3"></div>
+
+    </div>
+
+
     <!-- PAGE 1 -->
+
     <section class="page active" id="page1">
-        <div class="stars"></div>
 
         <div class="content">
+
             <div class="heart">❤️</div>
 
-            <h1 class="glow">Happy Birthday Papa</h1>
+            <h1 class="glow">
+                Happy Birthday Papa
+            </h1>
 
             <p>
                 Today is not just another day.
@@ -205,80 +417,121 @@
                 Today is the day we celebrate you.
             </p>
 
-            <button onclick="nextPage()">Continue →</button>
+            <button onclick="nextPage()">
+                Continue →
+            </button>
+
         </div>
 
         <div class="balloon b1">🎈</div>
         <div class="balloon b2">🎈</div>
         <div class="balloon b3">🎈</div>
         <div class="balloon b4">🎈</div>
+
     </section>
 
 
     <!-- PAGE 2 -->
+
     <section class="page" id="page2">
+
         <div class="content">
 
-            <h2>कुछ बातें ❤️</h2>
+            <h2>
+                कुछ बातें ❤️
+            </h2>
 
             <div class="thought">
+
                 "पापा, आपकी मेहनत शायद हमेशा दिखाई नहीं देती,
                 लेकिन हमारे हर छोटे-बड़े सुख के पीछे
                 आपकी मेहनत छुपी होती है।"
+
             </div>
 
-            <button onclick="nextPage()">Next →</button>
+            <button onclick="nextPage()">
+                Next →
+            </button>
 
         </div>
+
     </section>
 
 
     <!-- PAGE 3 -->
+
     <section class="page" id="page3">
+
         <div class="content">
 
-            <h2>MY FEELINGS FOR YOU </h2>
+            <h2>
+                MY FEELINGS FOR YOU
+            </h2>
 
             <p>
+
                 पापा, मैं शायद हर बार अपनी feelings शब्दों में
                 नहीं बता पाता, लेकिन आप मेरे लिए बहुत खास हैं।
+
                 <br><br>
-                 जब आप मेरे साथ हों तो मुझे लगता है 
-                 कोई मेरा कुछ नहीं कर सकता 🤣
+
+                जब आप मेरे साथ हों तो मुझे लगता है
+                कोई मेरा कुछ नहीं कर सकता 🤣
+
                 <br><br>
+
                 Thank you for everything, Papa. ❤️
+
             </p>
 
-            <button onclick="nextPage()">Next →</button>
+            <button onclick="nextPage()">
+                Next →
+            </button>
 
         </div>
+
     </section>
 
 
     <!-- PAGE 4 -->
+
     <section class="page" id="page4">
+
         <div class="content">
 
-            <h2> Little Thought For You </h2>
+            <h2>
+                Little Thought For You
+            </h2>
 
             <div class="thought">
-                आपके लिए मेरे दिल में जो प्यार और सम्मान है, 
-              उसे शब्दों में बताना मेरे लिए हमेशा मुश्किल रहा है।
+
+                आपके लिए मेरे दिल में जो प्यार और सम्मान है,
+                उसे शब्दों में बताना मेरे लिए हमेशा मुश्किल रहा है।
+
             </div>
 
-            <button onclick="nextPage()">One More →</button>
+            <button onclick="nextPage()">
+                One More →
+            </button>
 
         </div>
+
     </section>
 
 
     <!-- PAGE 5 -->
+
     <section class="page" id="page5">
+
         <div class="content">
 
-            <div class="cake">🎂</div>
+            <div class="cake">
+                🎂
+            </div>
 
-            <h1 class="glow">Happy Birthday Papa! 🎉</h1>
+            <h1 class="glow">
+                Happy Birthday Papa! 🎉
+            </h1>
 
             <p>
                 May you always stay happy,
@@ -291,24 +544,35 @@
                 With lots of love ❤️
             </p>
 
-            <button onclick="nextPage()">🎁 Final Surprise</button>
+            <button onclick="nextPage()">
+                🎁 Final Surprise
+            </button>
 
         </div>
+
     </section>
 
 
     <!-- PAGE 6 -->
+
     <section class="page" id="page6">
+
         <div class="content">
 
-            <div class="cake">🎂</div>
+            <div class="cake">
+                🎂
+            </div>
 
-            <h1 class="glow">❤️ Papa ❤️</h1>
+            <h1 class="glow">
+                ❤️ Papa ❤️
+            </h1>
 
             <p class="thought">
+
                 "आप मेरे लिए सिर्फ Papa नहीं,
                 बल्कि मेरी strength, मेरी inspiration
                 और मेरे सबसे बड़े support हैं।"
+
             </p>
 
             <p>
@@ -316,14 +580,42 @@
             </p>
 
         </div>
+
     </section>
 
 
+    <!-- BALLOONS -->
+
+    <div class="balloon b1">🎈</div>
+    <div class="balloon b2">🎈</div>
+    <div class="balloon b3">🎈</div>
+    <div class="balloon b4">🎈</div>
+
+
+    <!-- CONFETTI -->
+
+    <div class="confetti" style="left:5%; animation-duration:5s; animation-delay:0s;"></div>
+    <div class="confetti" style="left:15%; animation-duration:7s; animation-delay:1s;"></div>
+    <div class="confetti" style="left:25%; animation-duration:6s; animation-delay:2s;"></div>
+    <div class="confetti" style="left:35%; animation-duration:8s; animation-delay:0s;"></div>
+    <div class="confetti" style="left:45%; animation-duration:5s; animation-delay:3s;"></div>
+    <div class="confetti" style="left:55%; animation-duration:7s; animation-delay:1s;"></div>
+    <div class="confetti" style="left:65%; animation-duration:6s; animation-delay:2s;"></div>
+    <div class="confetti" style="left:75%; animation-duration:8s; animation-delay:0s;"></div>
+    <div class="confetti" style="left:85%; animation-duration:5s; animation-delay:3s;"></div>
+    <div class="confetti" style="left:95%; animation-duration:7s; animation-delay:1s;"></div>
+
+
+    <!-- JAVASCRIPT -->
+
     <script>
+
         let currentPage = 1;
 
         function nextPage() {
-            document.getElementById("page" + currentPage)
+
+            document
+                .getElementById("page" + currentPage)
                 .classList.remove("active");
 
             currentPage++;
@@ -332,11 +624,51 @@
                 currentPage = 1;
             }
 
-            document.getElementById("page" + currentPage)
+            document
+                .getElementById("page" + currentPage)
                 .classList.add("active");
 
             window.scrollTo(0, 0);
         }
+
+
+        /* Create random glowing particles */
+
+        for (let i = 0; i < 35; i++) {
+
+            const particle = document.createElement("div");
+
+            particle.className = "particle";
+
+            particle.style.left =
+                Math.random() * 100 + "%";
+
+            particle.style.top =
+                Math.random() * 100 + "%";
+
+            particle.style.animationDelay =
+                Math.random() * 5 + "s";
+
+            particle.style.animationDuration =
+                4 + Math.random() * 5 + "s";
+
+            document.body.appendChild(particle);
+
+        }
+
+
+        /* Give confetti different shapes */
+
+        const confetti =
+            document.querySelectorAll(".confetti");
+
+        confetti.forEach((piece, index) => {
+
+            piece.style.transform =
+                "rotate(" + (index * 37) + "deg)";
+
+        });
+
     </script>
 
 </body>
