@@ -1,1 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Papa ❤️</title>
 
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: #050505;
+            color: white;
+            overflow-x: hidden;
+        }
+
+        .page {
+            min-height: 100vh;
+            display: none;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 30px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .page.active {
+            display: flex;
+            animation: fadeIn 1s ease;
+        }
+
+        .content {
+            max-width: 700px;
+            width: 100%;
+            position: relative;
+            z-index: 2;
+        }
+
+        h1 {
+            font-size: clamp(38px, 9vw, 75px);
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: clamp(28px, 6vw, 50px);
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 19px;
+            line-height: 1.8;
+            color: #eeeeee;
+        }
+
+        .thought {
+            font-size: 25px;
+            line-height: 1.7;
+            margin: 25px auto;
+            max-width: 650px;
+        }
+
+        button {
+            border: none;
+            padding: 14px 28px;
+            border-radius: 30px;
+            background: white;
+            color: black;
+            font-size: 16px;
+            cursor: pointer;
+            margin-top: 30px;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+        }
+
+        .glow {
+            text-shadow:
+                0 0 10px white,
+                0 0 25px #ffcc70,
+                0 0 50px #ff8c00;
+        }
+
+        .balloon {
+            position: absolute;
+            width: 45px;
+            height: 55px;
+            border-radius: 50%;
+            bottom: -80px;
+            animation: float 8s linear infinite;
+            opacity: 0.8;
+        }
+
+        .b1 {
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .b2 {
+            left: 30%;
+            animation-delay: 2s;
+        }
+
+        .b3 {
+            left: 55%;
+            animation-delay: 4s;
+        }
+
+        .b4 {
+            left: 80%;
+            animation-delay: 1s;
+        }
+
+        .heart {
+            font-size: 65px;
+            animation: heartbeat 1.4s infinite;
+            margin-bottom: 20px;
+        }
+
+        .cake {
+            font-size: 120px;
+            animation: cakeFloat 2s ease-in-out infinite;
+            margin: 20px;
+        }
+
+        .stars {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(white 1px, transparent 1px);
+            background-size: 45px 45px;
+            opacity: 0.15;
+            animation: starsMove 12s linear infinite;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.97);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0) rotate(-5deg);
+            }
+            100% {
+                transform: translateY(-120vh) rotate(10deg);
+            }
+        }
+
+        @keyframes heartbeat {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.15);
+            }
+        }
+
+        @keyframes cakeFloat {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-12px);
+            }
+        }
+
+        @keyframes starsMove {
+            from {
+                transform: translateY(0);
+            }
+            to {
+                transform: translateY(-45px);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- PAGE 1 -->
+    <section class="page active" id="page1">
+        <div class="stars"></div>
+
+        <div class="content">
+            <div class="heart">❤️</div>
+
+            <h1 class="glow">Happy Birthday Papa</h1>
+
+            <p>
+                Today is not just another day.
+                <br>
+                Today is the day we celebrate you.
+            </p>
+
+            <button onclick="nextPage()">Continue →</button>
+        </div>
+
+        <div class="balloon b1">🎈</div>
+        <div class="balloon b2">🎈</div>
+        <div class="balloon b3">🎈</div>
+        <div class="balloon b4">🎈</div>
+    </section>
+
+
+    <!-- PAGE 2 -->
+    <section class="page" id="page2">
+        <div class="content">
+
+            <h2>कुछ बातें ❤️</h2>
+
+            <div class="thought">
+                "पापा, आपकी मेहनत शायद हमेशा दिखाई नहीं देती,
+                लेकिन हमारे हर छोटे-बड़े सुख के पीछे
+                आपकी मेहनत छुपी होती है।"
+            </div>
+
+            <button onclick="nextPage()">Next →</button>
+
+        </div>
+    </section>
+
+
+    <!-- PAGE 3 -->
+    <section class="page" id="page3">
+        <div class="content">
+
+            <h2>MY FEELINGS FOR YOU </h2>
+
+            <p>
+                पापा, मैं शायद हर बार अपनी feelings शब्दों में
+                नहीं बता पाता, लेकिन आप मेरे लिए बहुत खास हैं।
+                <br><br>
+                 जब आप मेरे साथ हों तो मुझे लगता है 
+                 कोई मेरा कुछ नहीं कर सकता 🤣
+                <br><br>
+                Thank you for everything, Papa. ❤️
+            </p>
+
+            <button onclick="nextPage()">Next →</button>
+
+        </div>
+    </section>
+
+
+    <!-- PAGE 4 -->
+    <section class="page" id="page4">
+        <div class="content">
+
+            <h2> Little Thought For You </h2>
+
+            <div class="thought">
+                आपके लिए मेरे दिल में जो प्यार और सम्मान है, 
+              उसे शब्दों में बताना मेरे लिए हमेशा मुश्किल रहा है।
+            </div>
+
+            <button onclick="nextPage()">One More →</button>
+
+        </div>
+    </section>
+
+
+    <!-- PAGE 5 -->
+    <section class="page" id="page5">
+        <div class="content">
+
+            <div class="cake">🎂</div>
+
+            <h1 class="glow">Happy Birthday Papa! 🎉</h1>
+
+            <p>
+                May you always stay happy,
+                healthy and smiling.
+            </p>
+
+            <br>
+
+            <p>
+                With lots of love ❤️
+            </p>
+
+            <button onclick="nextPage()">🎁 Final Surprise</button>
+
+        </div>
+    </section>
+
+
+    <!-- PAGE 6 -->
+    <section class="page" id="page6">
+        <div class="content">
+
+            <div class="cake">🎂</div>
+
+            <h1 class="glow">❤️ Papa ❤️</h1>
+
+            <p class="thought">
+                "आप मेरे लिए सिर्फ Papa नहीं,
+                बल्कि मेरी strength, मेरी inspiration
+                और मेरे सबसे बड़े support हैं।"
+            </p>
+
+            <p>
+                Happy Birthday! 🎉
+            </p>
+
+        </div>
+    </section>
+
+
+    <script>
+        let currentPage = 1;
+
+        function nextPage() {
+            document.getElementById("page" + currentPage)
+                .classList.remove("active");
+
+            currentPage++;
+
+            if (currentPage > 6) {
+                currentPage = 1;
+            }
+
+            document.getElementById("page" + currentPage)
+                .classList.add("active");
+
+            window.scrollTo(0, 0);
+        }
+    </script>
+
+</body>
+</html>
